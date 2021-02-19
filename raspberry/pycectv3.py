@@ -449,7 +449,7 @@ class Ui_Form(QtCore.QObject):
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
         #        '--text-renderer=any', '--freetype-rel-fontsize=-5']
         opts=['--video-on-top', '--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
-               '--sub-text-scale=75', '--sub-margin=20']
+               '--sub-text-scale=60', '--sub-margin=20']
         self.vlcInstance = vlc.Instance(opts)
         self.videoPlayer = self.vlcInstance.media_player_new()
         self.media = self.vlcInstance.media_new(soittourl)
