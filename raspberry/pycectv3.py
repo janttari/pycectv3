@@ -207,6 +207,8 @@ class Ui_Form(QtCore.QObject):
         self.list_ohjelma.move(0,0)
         self.list_ohjelma.setFixedSize(KANAVALISTALEVEYS,self.monitor.height())
         self.list_ohjelma.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.list_aani.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.list_tekstitys.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.btn_sulje.clicked.connect(self.lopeta)
         self.list_ohjelma.clicked.connect(self.klikattuKohde)
         self.list_ohjelma.itemActivated.connect(self.klikattuKohde)
