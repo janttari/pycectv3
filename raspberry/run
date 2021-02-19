@@ -1,0 +1,5 @@
+#!/bin/bash
+sudo killall -9 vlc python3
+export DISPLAY=:0;python3 pycectv3.py &
+echo "."
+exit 0

@@ -1,0 +1,35 @@
+#asennettu graafinen työpöytä ilman turhia ohjelmia, sitten:
+sudo passwd pi
+sudo apt purge piwiz 
+<<ssh-copy-id -i ~/.ssh/id_rsa.pub pi@192.168.1.13
+echo "avoid_warnings=1" |sudo tee -a /boot/config.txt #salama pois ruudulta
+
+sudo apt update
+sudo apt install -y python3-pip python3-pyqt5 jq vlc cec-utils unclutter omxplayer vlc
+sudo apt purge -y youtube-dl
+sudo pip3 install cec python-vlc youtube-dl python-vlc
+
+
+#screensaver pois
+mkdir -p ~/.config/lxsession/LXDE-pi
+echo "@lxpanel --profile LXDE-pi" >~/.config/lxsession/LXDE-pi/autostart
+echo "@pcmanfm --desktop --profile LXDE-pi" >>~/.config/lxsession/LXDE-pi/autostart
+echo "@xset s off" >>~/.config/lxsession/LXDE-pi/autostart
+echo "@xset -dpms" >>~/.config/lxsession/LXDE-pi/autostart
+echo "@xset s noblank" >>~/.config/lxsession/LXDE-pi/autostart
+
+
+-----------
+./.config/lxpanel/LXDE-pi/panels/panel
+./.config/lxpanel/LXDE-pi/config
+/etc/rc.local
+/usr/bin/autoexec
+
+
+
+***ipv6disable
+
+
+vlc käännös https://alignan.github.io/post/compile-vlc-raspberry-stretch/
+
+

@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+    {
+    "type": "python",
+    "request": "launch",
+    "name": "upload",
+    "program": "/usr/bin/piupload.py",
+    "args": [
+    "upload",
+    "${workspaceRoot}",
+    //"${file}",
+    "/home/pi/pycectv3", //raspissa hakemisto
+    "pi@192.168.1.26"   //raspin ip
+    ],
+    }
+    ]
+    }
+    
