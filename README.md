@@ -9,3 +9,11 @@ Säädä tiedosto ~/.config/pycectv.conf
     pass=XXXX  
       
       
+Riippuvuudet:  
+  
+    sudo apt purge -y  piwiz 
+    sudo apt update &&sudo apt upgrade -y
+    sudo apt install -y python3-pip python3-pyqt5 vlc cec-utils unclutter
+    sudo pip3 install cec python-vlc configobj
+    
+    
