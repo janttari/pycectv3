@@ -16,16 +16,19 @@ from configobj import ConfigObj
 import os.path
 from pathlib import Path
 
+def debug(*args):
+    pass
+    #print(args)
 
 home = str(Path.home())
-print(home)
+debug(home)
 if not os.path.exists(home+"/.config/pycectv.conf"):
-    print("konfiguraatiotiedosto ~/.config/pycectv.conf puuttuu!")
+    debug("konfiguraatiotiedosto ~/.config/pycectv.conf puuttuu!")
     quit()
 config=ConfigObj(home+"/.config/pycectv.conf")
 ENIGMAURL=config.get("enigmaurl")
 if len(ENIGMAURL)<5:
-    print("enigmaurl puuttuu asetustiedostosta")
+    debug("enigmaurl puuttuu asetustiedostosta")
     quit()
 kayttaja=config.get("user")
 salasana=config.get("pass")
@@ -234,23 +237,23 @@ class Ui_Form(QtCore.QObject):
     #     self.timer.start()
 
     # def timertask(self):
-    #     print(self.nappain)
+    #     debug(self.nappain)
     #     if self.seis:
     #         quit()
 
 
     def cecNappain(self, event, *args): #cec:n callback (**1**)
-        print("args", args)
+        debug("args", args)
         if args[1] == 0 or args[0] == 69: #painike alas #69 stop lähettää vain yhden eventin
             self.signal.emit(NAPIT[args[0]]) #lähetetään signaali --> **2*
 
     @QtCore.pyqtSlot(str)
     def eventp(self, arvo): #(**2**)
-        print(arvo)
+        debug(arvo)
         self.sendKey(arvo)
 
     def sendKey(self, nappi): #(**3**)
-        print("saatu", nappi)
+        debug("saatu", nappi)
         if nappi=="ALAS":
             nappain=QtCore.Qt.Key_Down
         elif nappi=="YLÖS":
@@ -265,7 +268,7 @@ class Ui_Form(QtCore.QObject):
             nappain=QtCore.Qt.Key_Escape
         widget = QtWidgets.QApplication.focusWidget() #aktiivinen widget
         obj=widget.objectName() #aktiivisen widgetin nimi
-        print("widget",widget, obj)
+        debug("widget",widget, obj)
         if widget == self.list_ohjelma and self.list_ohjelma.isVisible():
             if nappi in ["YLÖS", "ALAS", "OK"]:
                 event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress, nappain, QtCore.Qt.NoModifier)
@@ -283,7 +286,7 @@ class Ui_Form(QtCore.QObject):
             event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress, nappain, QtCore.Qt.NoModifier)
             QtCore.QCoreApplication.sendEvent(widget, event)
         elif nappi in ["YLÖS", "BACK"] and not self.frame_alapalkki.isVisible():
-            print("alapalkkishow")
+            debug("alapalkkishow")
             self.alapalkkiShow()
         elif obj in ["list_tekstitys", "list_aani"]:
             if nappi in ["YLÖS", "ALAS", "OK"]:
@@ -312,7 +315,7 @@ class Ui_Form(QtCore.QObject):
 
     def klikattuAraita(self):
         kohde=self.list_aani.currentRow()
-        print("AKLIK", kohde)
+        debug("AKLIK", kohde)
         if self.atracks[kohde] != "!close":
             self.videoPlayer.audio_set_track(self.atracks[kohde])
         self.list_aani.hide()
@@ -340,7 +343,7 @@ class Ui_Form(QtCore.QObject):
 
     def klikattuSraita(self):
         kohde=self.list_tekstitys.currentRow()
-        print("sKLIK", kohde)
+        debug("sKLIK", kohde)
         if self.stracks[kohde] != "!close":
             self.videoPlayer.video_set_spu(self.stracks[kohde])
         self.list_tekstitys.hide()
@@ -423,7 +426,7 @@ class Ui_Form(QtCore.QObject):
             r=requests.get(url)
             data = r.json()
             for d in data["movies"]:
-                print(d)
+                debug(d)
                 qitem=QtWidgets.QListWidgetItem(d["filename_stripped"])
                 qitem.setForeground(QtGui.QColor("bisque"))
                 self.list_ohjelma.addItem(qitem)
@@ -434,14 +437,14 @@ class Ui_Form(QtCore.QObject):
         self.frame_soitin.move(0,0)
         self.frame_soitin.setFixedSize(self.monitor.width(),self.monitor.height())
         kohde=self.list_ohjelma.currentRow()
-        print("klikattukohde",kohde, self.striimiLista[kohde])
+        debug("klikattukohde",kohde, self.striimiLista[kohde])
         self.list_ohjelma.hide()
         if kohde==0: #exit ekana
             return
         if self.videoPlayer is not None:
             self.videoPlayer.release()
         soittourl=self.striimiperus+urllib.parse.quote(self.striimiLista[kohde][1])
-        print("SOITA", soittourl)
+        debug("SOITA", soittourl)
         self.frame_alapalkki.hide()
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
         #        '--text-renderer=any', '--freetype-rel-fontsize=-5']
@@ -457,7 +460,7 @@ class Ui_Form(QtCore.QObject):
         
     def haeStriiminPerusosoite(self):
         url= ENIGMAURL+"/api/stream.m3u" #hae striimien perus-osoite
-        print(url)
+        debug(url)
         r=requests.get(url)
         vast=r.text
         surl=vast.split("\n")[-2]

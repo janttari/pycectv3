@@ -283,6 +283,9 @@ QListView::item:selected{
 background-color: rgb(75,153,134); 
 color: yellow;};</string>
    </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
   </widget>
  </widget>
  <tabstops>
