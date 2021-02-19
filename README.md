@@ -17,7 +17,8 @@ Riippuvuudet:
     sudo pip3 install cec python-vlc configobj
     
     
-Todo:
--ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi
--suosituille kielille valinta (audio ja tekstitys)
--omat skriptit valikkoon TV ja Tallennne lisäksi
+Todo:  
+-ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi  
+-suosituille kielille valinta (audio ja tekstitys)  
+-omat skriptit valikkoon TV ja Tallennne lisäksi  
+  
