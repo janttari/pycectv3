@@ -45,10 +45,12 @@ class Ui_Form(QtCore.QObject):
     signal = QtCore.pyqtSignal([str])
 #################################################
 
+
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(852, 649)
-        Form.setStyleSheet("background-color: rgb(0, 0, 0);")
+        Form.setStyleSheet("background-color: rgb(0, 0, 0);\n"
+"border: none;")
         self.frame_alapalkki = QtWidgets.QFrame(Form)
         self.frame_alapalkki.setGeometry(QtCore.QRect(170, 559, 661, 81))
         self.frame_alapalkki.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -191,6 +193,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setText(_translate("Form", "Ääni"))
         self.btn_sulje.setText(_translate("Form", "Sulje"))
         self.btn_tmp.setText(_translate("Form", "tmp"))
+
 
 
 #################################################
