@@ -33,3 +33,4 @@ Todo:
 - [ ] omat skriptit valikkoon TV ja Tallennne lisäksi
 - [ ] tallenteiden kelaus 
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
+- [ ] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
