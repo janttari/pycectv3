@@ -11,10 +11,14 @@ Säädä tiedosto ~/.config/pycectv.conf
       
 Riippuvuudet:  
   
-    sudo apt purge -y  piwiz 
     sudo apt update &&sudo apt upgrade -y
     sudo apt install -y python3-pip python3-pyqt5 vlc cec-utils unclutter
     sudo pip3 install cec python-vlc configobj
+
+    
+Kun riippuvuudet on asennettu ja konfiguraatiotiedosto säädetty kuntoon,  
+tiedosto https://github.com/janttari/pycectv3/blob/main/raspberry/pycectv3.py  
+on ainoa tarvittava, joten sen voi ladata suoraankin.  
     
     
 Todo:  
