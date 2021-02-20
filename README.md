@@ -29,3 +29,4 @@ Todo:
 - [ ] suosituille kielille valinta (audio ja tekstitys)
 - [ ] omat skriptit valikkoon TV ja Tallennne lisäksi
 - [ ] tallenteiden kelaus 
+- [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
