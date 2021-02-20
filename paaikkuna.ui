@@ -173,7 +173,7 @@ color: yellow;};</string>
    <property name="styleSheet">
     <string notr="true">QListView{
 background-color:rgb(41, 85, 74); 
-font: 24pt &quot;Ubuntu&quot;;
+font: 18pt &quot;Ubuntu&quot;;
 color: white;}
 
 QListView::item:selected{
@@ -253,7 +253,7 @@ color: yellow;};</string>
    <property name="styleSheet">
     <string notr="true">QListView{
 background-color:rgb(41, 85, 74); 
-font: 24pt &quot;Ubuntu&quot;;
+font: 18pt &quot;Ubuntu&quot;;
 color: white;}
 
 QListView::item:selected{
@@ -276,7 +276,7 @@ color: yellow;};</string>
    <property name="styleSheet">
     <string notr="true">QListView{
 background-color:rgb(41, 85, 74); 
-font: 24pt &quot;Ubuntu&quot;;
+font: 18pt &quot;Ubuntu&quot;;
 color: white;}
 
 QListView::item:selected{
