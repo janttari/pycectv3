@@ -19,7 +19,9 @@ Riippuvuudet:
 Kun riippuvuudet on asennettu ja konfiguraatiotiedosto säädetty kuntoon,  
 tiedosto https://github.com/janttari/pycectv3/blob/main/raspberry/pycectv3.py  
 on ainoa tarvittava, joten sen voi ladata suoraankin.  
-    
+  
+Jos haluaa teksti-tv-tekstitystä varten hyvän fontin, sen voi ladata: https://www.fontsquirrel.com/fonts/tiresias-infofont  
+  
     
 Todo:  
 -ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi  
