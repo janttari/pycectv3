@@ -21,4 +21,6 @@ Todo:
 -ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi  
 -suosituille kielille valinta (audio ja tekstitys)  
 -omat skriptit valikkoon TV ja Tallennne lisäksi  
+-tallenteiden kelaus  
+
   
