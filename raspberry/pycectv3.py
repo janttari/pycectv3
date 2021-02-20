@@ -37,30 +37,31 @@ if salasana is not None:
     alku,loppu=ENIGMAURL.split("://") 
     ENIGMAURL=alku+"://"+kayttaja+":"+salasana+"@"+loppu
 
-#################################################
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Form(QtCore.QObject):
     signal = QtCore.pyqtSignal([str])
+#################################################
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(852, 649)
         Form.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.frame_alapalkki = QtWidgets.QFrame(Form)
-        self.frame_alapalkki.setGeometry(QtCore.QRect(240, 560, 591, 80))
+        self.frame_alapalkki.setGeometry(QtCore.QRect(170, 559, 661, 81))
         self.frame_alapalkki.setFocusPolicy(QtCore.Qt.NoFocus)
         self.frame_alapalkki.setStyleSheet("background-color: rgb(0, 0, 255);")
         self.frame_alapalkki.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_alapalkki.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_alapalkki.setObjectName("frame_alapalkki")
         self.btn_tv = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_tv.setGeometry(QtCore.QRect(20, 10, 101, 51))
+        self.btn_tv.setGeometry(QtCore.QRect(10, 10, 120, 51))
         self.btn_tv.setStyleSheet("QToolButton{\n"
-"background-color:rgb(0,0,255); \n"
+"background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
-"color: white;}\n"
+"color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
 "border-top-right-radius: 0px;\n"
@@ -70,9 +71,9 @@ class Ui_Form(QtCore.QObject):
         self.btn_tallenne = QtWidgets.QToolButton(self.frame_alapalkki)
         self.btn_tallenne.setGeometry(QtCore.QRect(140, 10, 120, 51))
         self.btn_tallenne.setStyleSheet("QToolButton{\n"
-"background-color:rgb(0,0,255); \n"
+"background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
-"color: white;}\n"
+"color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
 "border-top-right-radius: 0px;\n"
@@ -82,9 +83,9 @@ class Ui_Form(QtCore.QObject):
         self.btn_teksti = QtWidgets.QToolButton(self.frame_alapalkki)
         self.btn_teksti.setGeometry(QtCore.QRect(270, 10, 120, 51))
         self.btn_teksti.setStyleSheet("QToolButton{\n"
-"background-color:rgb(0,0,255); \n"
+"background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
-"color: white;}\n"
+"color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
 "border-top-right-radius: 0px;\n"
@@ -94,9 +95,9 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani = QtWidgets.QToolButton(self.frame_alapalkki)
         self.btn_aani.setGeometry(QtCore.QRect(400, 10, 120, 51))
         self.btn_aani.setStyleSheet("QToolButton{\n"
-"background-color:rgb(0,0,255); \n"
+"background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
-"color: white;}\n"
+"color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
 "border-top-right-radius: 0px;\n"
@@ -106,9 +107,9 @@ class Ui_Form(QtCore.QObject):
         self.btn_sulje = QtWidgets.QToolButton(self.frame_alapalkki)
         self.btn_sulje.setGeometry(QtCore.QRect(530, 10, 120, 51))
         self.btn_sulje.setStyleSheet("QToolButton{\n"
-"background-color:rgb(0,0,255); \n"
+"background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
-"color: white;}\n"
+"color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
 "border-top-right-radius: 0px;\n"
@@ -120,12 +121,13 @@ class Ui_Form(QtCore.QObject):
         self.list_ohjelma.setFocusPolicy(QtCore.Qt.NoFocus)
         self.list_ohjelma.setStyleSheet("QListView{\n"
 "background-color:rgb(41, 85, 74); \n"
-"font: 16pt \"Ubuntu\";\n"
+"font: 18pt \"Ubuntu\";\n"
 "color: white;}\n"
 "\n"
 "QListView::item:selected{\n"
 "background-color: rgb(75,153,134); \n"
 "color: yellow;};")
+        self.list_ohjelma.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_ohjelma.setObjectName("list_ohjelma")
         self.btn_tmp = QtWidgets.QToolButton(Form)
         self.btn_tmp.setGeometry(QtCore.QRect(230, 290, 81, 31))
@@ -166,6 +168,7 @@ class Ui_Form(QtCore.QObject):
 "QListView::item:selected{\n"
 "background-color: rgb(75,153,134); \n"
 "color: yellow;};")
+        self.list_aani.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_aani.setObjectName("list_aani")
 
         self.retranslateUi(Form)
@@ -188,6 +191,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setText(_translate("Form", "Ääni"))
         self.btn_sulje.setText(_translate("Form", "Sulje"))
         self.btn_tmp.setText(_translate("Form", "tmp"))
+
 
 #################################################
         # self.btn_tmp.clicked.connect(self.fokusoi)
@@ -470,8 +474,8 @@ class Ui_Form(QtCore.QObject):
         self.striimiperus=surl
 
     def lopeta(self):
-        quit()
-
+        if self.videoPlayer is not None:
+            self.videoPlayer.release()
 
     def fokusoi(self):
         self.frame_alapalkki.show()
