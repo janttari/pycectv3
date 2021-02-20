@@ -282,7 +282,7 @@ class Ui_Form(QtCore.QObject):
                 self.frame_soitin.move(0,0)
                 self.frame_soitin.setFixedSize(self.monitor.width(),self.monitor.height())
                 self.alapalkkiShow()
-        elif nappi == "OK" and obj[:3] == "btn":
+        elif nappi == "OK" and obj[:3] == "btn" and self.frame_alapalkki.isVisible():
             widget.click()
         elif nappi in ["ALAS", "BACK"] and obj[:3] == "btn":
             self.alapalkkiHide()

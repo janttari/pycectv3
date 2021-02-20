@@ -24,9 +24,8 @@ Jos haluaa teksti-tv-tekstitystä varten hyvän fontin, sen voi ladata: https://
   
     
 Todo:  
--ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi  
--suosituille kielille valinta (audio ja tekstitys)  
--omat skriptit valikkoon TV ja Tallennne lisäksi  
--tallenteiden kelaus  
-
   
+- [x] ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi 
+- [ ] suosituille kielille valinta (audio ja tekstitys)
+- [ ] omat skriptit valikkoon TV ja Tallennne lisäksi
+- [ ] tallenteiden kelaus 
