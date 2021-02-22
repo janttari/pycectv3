@@ -46,7 +46,6 @@ class Ui_Form(QtCore.QObject):
     signal = QtCore.pyqtSignal([str])
 #################################################
 
-
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(852, 649)
@@ -144,11 +143,6 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.list_ohjelma.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_ohjelma.setObjectName("list_ohjelma")
-        self.btn_tmp = QtWidgets.QToolButton(Form)
-        self.btn_tmp.setGeometry(QtCore.QRect(230, 290, 81, 31))
-        self.btn_tmp.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_tmp.setStyleSheet("background-color: rgb(255, 255, 127);")
-        self.btn_tmp.setObjectName("btn_tmp")
         self.frame_soitin = QtWidgets.QFrame(Form)
         self.frame_soitin.setGeometry(QtCore.QRect(320, 90, 351, 191))
         self.frame_soitin.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -227,14 +221,9 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setText(_translate("Form", "Ääni"))
         self.btn_sulje.setText(_translate("Form", "Ulos"))
         self.btn_oma.setText(_translate("Form", "Oma"))
-        self.btn_tmp.setText(_translate("Form", "tmp"))
-
-
 
 
 #################################################
-        # self.btn_tmp.clicked.connect(self.fokusoi)
-        self.btn_tmp.hide()
         Form.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint|QtCore.Qt.CustomizeWindowHint|QtCore.Qt.FramelessWindowHint)
         self.monitor = QtWidgets.QDesktopWidget().screenGeometry(0) # Jos useampi monitori käytössä
         self.frame_soitin.move(KANAVALISTALEVEYS,0)
@@ -287,16 +276,6 @@ class Ui_Form(QtCore.QObject):
         self.signal.connect(self.eventp)
         self.omaPaalla=None # silloin kun oma-valikon skripti on päällä, tässä sen subprocess ja voidaan tappaa STOP-painikkeella
         self.tallenneToistuu=None # Kun tallenne toistuu, pause ja kelaus on aktiivisia !TODO
-    #     self.timer = QtCore.QTimer()
-    #     self.timer.setInterval(1000) 
-    #     self.timer.timeout.connect(self.timertask)
-    #     self.timer.start()
-
-    # def timertask(self):
-    #     debug(self.nappain)
-    #     if self.seis:
-    #         quit()
-
 
     def cecNappain(self, event, *args): #cec:n callback (**1**)
         debug("args", args)
@@ -503,10 +482,10 @@ class Ui_Form(QtCore.QObject):
         self.frame_alapalkki.hide()
         self.list_ohjelma.clear()
         self.striimiLista=[]
-        self.striimiLista.append(["<--", "exit"])
-        qitem=QtWidgets.QListWidgetItem("<--")
-        qitem.setForeground(QtGui.QColor("red"))
-        self.list_ohjelma.addItem(qitem)
+        # self.striimiLista.append(["<--", "exit"]) #ei tätä tartte kun back-painike kätevämpi
+        # qitem=QtWidgets.QListWidgetItem("<--")
+        # qitem.setForeground(QtGui.QColor("red"))
+        # self.list_ohjelma.addItem(qitem)
         self.list_ohjelma.show()
         self.list_ohjelma.setFocus()
         self.list_ohjelma.setCurrentRow(0)
@@ -607,9 +586,6 @@ class Ui_Form(QtCore.QObject):
         if self.videoPlayer is not None:
             self.videoPlayer.release()
 
-    def fokusoi(self):
-        self.frame_alapalkki.show()
-        self.frame_soitin.setFixedSize(self.monitor.width(),self.monitor.height()-ALAPALKKIKORKEUS)
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
