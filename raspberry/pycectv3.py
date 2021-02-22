@@ -15,6 +15,7 @@ import urllib.parse
 from configobj import ConfigObj
 import os.path
 from pathlib import Path
+import subprocess, signal
 
 def debug(*args):
     pass
@@ -52,14 +53,14 @@ class Ui_Form(QtCore.QObject):
         Form.setStyleSheet("background-color: rgb(0, 0, 0);\n"
 "border: none;")
         self.frame_alapalkki = QtWidgets.QFrame(Form)
-        self.frame_alapalkki.setGeometry(QtCore.QRect(170, 559, 661, 81))
+        self.frame_alapalkki.setGeometry(QtCore.QRect(50, 560, 800, 81))
         self.frame_alapalkki.setFocusPolicy(QtCore.Qt.NoFocus)
         self.frame_alapalkki.setStyleSheet("background-color: rgb(0, 0, 255);")
         self.frame_alapalkki.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_alapalkki.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_alapalkki.setObjectName("frame_alapalkki")
         self.btn_tv = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_tv.setGeometry(QtCore.QRect(10, 10, 120, 51))
+        self.btn_tv.setGeometry(QtCore.QRect(0, 10, 100, 51))
         self.btn_tv.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
@@ -71,7 +72,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_tv.setObjectName("btn_tv")
         self.btn_tallenne = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_tallenne.setGeometry(QtCore.QRect(140, 10, 120, 51))
+        self.btn_tallenne.setGeometry(QtCore.QRect(220, 10, 100, 51))
         self.btn_tallenne.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
@@ -83,7 +84,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_tallenne.setObjectName("btn_tallenne")
         self.btn_teksti = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_teksti.setGeometry(QtCore.QRect(270, 10, 120, 51))
+        self.btn_teksti.setGeometry(QtCore.QRect(330, 10, 100, 51))
         self.btn_teksti.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
@@ -95,7 +96,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_teksti.setObjectName("btn_teksti")
         self.btn_aani = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_aani.setGeometry(QtCore.QRect(400, 10, 120, 51))
+        self.btn_aani.setGeometry(QtCore.QRect(440, 10, 100, 51))
         self.btn_aani.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
@@ -107,7 +108,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_aani.setObjectName("btn_aani")
         self.btn_sulje = QtWidgets.QToolButton(self.frame_alapalkki)
-        self.btn_sulje.setGeometry(QtCore.QRect(530, 10, 120, 51))
+        self.btn_sulje.setGeometry(QtCore.QRect(550, 10, 100, 51))
         self.btn_sulje.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 18pt \"Ubuntu\";\n"
@@ -118,6 +119,18 @@ class Ui_Form(QtCore.QObject):
 "background-color: rgb(255,0,0); \n"
 "color: yellow;};")
         self.btn_sulje.setObjectName("btn_sulje")
+        self.btn_oma = QtWidgets.QToolButton(self.frame_alapalkki)
+        self.btn_oma.setGeometry(QtCore.QRect(110, 10, 100, 51))
+        self.btn_oma.setStyleSheet("QToolButton{\n"
+"background-color: rgb(0,0,255);\n"
+"font: 18pt \"Ubuntu\";\n"
+"color: yellow;}\n"
+"\n"
+"QToolButton::focus{\n"
+"border-top-right-radius: 0px;\n"
+"background-color: rgb(255,0,0); \n"
+"color: yellow;};")
+        self.btn_oma.setObjectName("btn_oma")
         self.list_ohjelma = QtWidgets.QListWidget(Form)
         self.list_ohjelma.setGeometry(QtCore.QRect(10, 20, 141, 431))
         self.list_ohjelma.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -172,27 +185,50 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.list_aani.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_aani.setObjectName("list_aani")
+        self.list_ulos = QtWidgets.QListWidget(Form)
+        self.list_ulos.setGeometry(QtCore.QRect(320, 320, 81, 81))
+        self.list_ulos.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.list_ulos.setStyleSheet("QListView{\n"
+"background-color:rgb(41, 85, 74); \n"
+"font: 18pt \"Ubuntu\";\n"
+"color: white;}\n"
+"\n"
+"QListView::item:selected{\n"
+"background-color: rgb(75,153,134); \n"
+"color: yellow;};")
+        self.list_ulos.setObjectName("list_ulos")
+        self.list_omat = QtWidgets.QListWidget(Form)
+        self.list_omat.setGeometry(QtCore.QRect(740, 250, 81, 81))
+        self.list_omat.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.list_omat.setStyleSheet("QListView{\n"
+"background-color:rgb(41, 85, 74); \n"
+"font: 18pt \"Ubuntu\";\n"
+"color: white;}\n"
+"\n"
+"QListView::item:selected{\n"
+"background-color: rgb(75,153,134); \n"
+"color: yellow;};")
+        self.list_omat.setObjectName("list_omat")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        Form.setTabOrder(self.btn_tv, self.btn_tallenne)
+        Form.setTabOrder(self.btn_tv, self.btn_oma)
+        Form.setTabOrder(self.btn_oma, self.btn_tallenne)
         Form.setTabOrder(self.btn_tallenne, self.btn_teksti)
         Form.setTabOrder(self.btn_teksti, self.btn_aani)
         Form.setTabOrder(self.btn_aani, self.btn_sulje)
-        Form.setTabOrder(self.btn_sulje, self.list_aani)
-        Form.setTabOrder(self.list_aani, self.list_tekstitys)
-        Form.setTabOrder(self.list_tekstitys, self.btn_tmp)
-        Form.setTabOrder(self.btn_tmp, self.list_ohjelma)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.btn_tv.setText(_translate("Form", "TV"))
         self.btn_tallenne.setText(_translate("Form", "Tallenne"))
-        self.btn_teksti.setText(_translate("Form", "Tekstitys"))
+        self.btn_teksti.setText(_translate("Form", "Teksti"))
         self.btn_aani.setText(_translate("Form", "Ääni"))
-        self.btn_sulje.setText(_translate("Form", "Sulje"))
+        self.btn_sulje.setText(_translate("Form", "Ulos"))
+        self.btn_oma.setText(_translate("Form", "Oma"))
         self.btn_tmp.setText(_translate("Form", "tmp"))
+
 
 
 
@@ -214,23 +250,34 @@ class Ui_Form(QtCore.QObject):
         self.list_tekstitys.setFixedSize(500,500)
         self.list_tekstitys.move(self.monitor.width()-520,self.monitor.height()-ALAPALKKIKORKEUS-510)
         self.list_tekstitys.hide()
+        self.list_ulos.setFixedSize(500,500)
+        self.list_ulos.move(self.monitor.width()-520,self.monitor.height()-ALAPALKKIKORKEUS-510)
+        self.list_ulos.hide()
+        self.list_omat.setFixedSize(500,500)
+        self.list_omat.move(self.monitor.width()-520,self.monitor.height()-ALAPALKKIKORKEUS-510)
+        self.list_omat.hide()
         self.list_ohjelma.move(0,0)
         self.list_ohjelma.setFixedSize(KANAVALISTALEVEYS,self.monitor.height())
         self.list_ohjelma.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_aani.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_tekstitys.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.btn_sulje.clicked.connect(self.lopeta)
         self.list_ohjelma.clicked.connect(self.klikattuKohde)
         self.list_ohjelma.itemActivated.connect(self.klikattuKohde)
         self.haeStriiminPerusosoite()
         self.videoPlayer=None
         self.btn_tv.clicked.connect(self.tvklik)
         self.btn_aani.clicked.connect(self.klikattuAmenu)
+        self.btn_oma.clicked.connect(self.klikattuOmenu)
+        self.btn_sulje.clicked.connect(self.klikattuUmenu)
         self.list_aani.clicked.connect(self.klikattuAraita)
         self.list_aani.itemActivated.connect(self.klikattuAraita)
         self.btn_teksti.clicked.connect(self.klikattuSmenu)
         self.list_tekstitys.clicked.connect(self.klikattuSraita)
         self.list_tekstitys.itemActivated.connect(self.klikattuSraita)
+        self.list_ulos.clicked.connect(self.klikattuUraita)
+        self.list_ulos.itemActivated.connect(self.klikattuUraita)
+        self.list_omat.clicked.connect(self.klikattuOraita)
+        self.list_omat.itemActivated.connect(self.klikattuOraita)
         self.btn_tallenne.clicked.connect(self.movieklik)
         self.tvklik()
         cec.add_callback(self.cecNappain, cec.EVENT_KEYPRESS)
@@ -238,6 +285,8 @@ class Ui_Form(QtCore.QObject):
         self.nappain=None
         self.seis=False
         self.signal.connect(self.eventp)
+        self.omaPaalla=None # silloin kun oma-valikon skripti on päällä, tässä sen subprocess ja voidaan tappaa STOP-painikkeella
+        self.tallenneToistuu=None # Kun tallenne toistuu, pause ja kelaus on aktiivisia !TODO
     #     self.timer = QtCore.QTimer()
     #     self.timer.setInterval(1000) 
     #     self.timer.timeout.connect(self.timertask)
@@ -261,6 +310,17 @@ class Ui_Form(QtCore.QObject):
 
     def sendKey(self, nappi): #(**3**)
         debug("saatu", nappi)
+        if self.omaPaalla is not None: #jos oma ulkoinen skripti päällä
+            if nappi in ["STOP", "BACK"]: #pysäytetään oma skripti
+                debug("tapetaan oma")
+                os.killpg(os.getpgid(self.omaPaalla.pid), signal.SIGTERM) 
+                self.omaPaalla=None
+                Form.showMaximized()
+            return
+        elif self.tallenneToistuu: # tallenne on toistumassa
+            if nappi in ["PAUSE", "REV", "FWD", "PLAY"]: # ohjataan tallennetta
+                pass #!TODO
+                return
         if nappi=="ALAS":
             nappain=QtCore.Qt.Key_Down
         elif nappi=="YLÖS":
@@ -285,7 +345,7 @@ class Ui_Form(QtCore.QObject):
                 self.frame_soitin.move(0,0)
                 self.frame_soitin.setFixedSize(self.monitor.width(),self.monitor.height())
                 self.alapalkkiShow()
-        elif nappi == "OK" and obj[:3] == "btn" and self.frame_alapalkki.isVisible():
+        elif nappi in ["OK", "YLÖS"] and obj[:3] == "btn" and self.frame_alapalkki.isVisible():
             widget.click()
         elif nappi in ["ALAS", "BACK"] and obj[:3] == "btn":
             self.alapalkkiHide()
@@ -295,7 +355,7 @@ class Ui_Form(QtCore.QObject):
         elif nappi in ["YLÖS", "BACK"] and not self.frame_alapalkki.isVisible():
             debug("alapalkkishow")
             self.alapalkkiShow()
-        elif obj in ["list_tekstitys", "list_aani"]:
+        elif obj in ["list_tekstitys", "list_aani", "list_ulos", "list_omat"]:
             if nappi in ["YLÖS", "ALAS", "OK"]:
                 event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress, nappain, QtCore.Qt.NoModifier)
                 QtCore.QCoreApplication.sendEvent(widget, event)
@@ -303,7 +363,41 @@ class Ui_Form(QtCore.QObject):
             #     widget.hide()
             #     self.alapalkkiHide()
             
+    def klikattuUmenu(self):
+        self.utracks=[]
+        self.list_ulos.clear()
+        self.list_ulos.show()
+        self.frame_tracktausta.show()
+        self.utracks.append("!stop")
+        self.list_ulos.addItem("Pysäytä VLC")
+        self.utracks.append("!reboot")
+        self.list_ulos.addItem("Reboot")
+        self.utracks.append("!halt")
+        self.list_ulos.addItem("Sammuta")
+        self.utracks.append("!exit")
+        self.list_ulos.addItem("Lopeta")
+        self.utracks.append("!close")
+        self.list_ulos.addItem("[sulje]")
+        self.list_ulos.setFocus()
+        self.list_ulos.setCurrentRow(0)
 
+
+    def klikattuUraita(self):
+        kohde=self.list_ulos.currentRow()
+        if self.utracks[kohde]=="!reboot":
+            os.system("sudo reboot")
+        elif self.utracks[kohde]=="!halt":
+            os.system("sudo halt")
+        elif self.utracks[kohde]=="!exit":
+            quit()
+        elif self.utracks[kohde]=="!halt":
+            os.system("sudo halt")
+        elif self.utracks[kohde]=="!stop":
+            if self.videoPlayer is not None:
+                self.videoPlayer.release()
+        self.list_ulos.hide()
+        self.frame_tracktausta.hide()
+        self.alapalkkiHide()
 
     def klikattuAmenu(self):
         if self.videoPlayer is None:
@@ -368,6 +462,39 @@ class Ui_Form(QtCore.QObject):
         self.frame_alapalkki.show()
         self.frame_alapalkki.raise_()
         self.btn_tv.setFocus()
+
+
+    def klikattuOmenu(self): #omat skripti kohteesta ~/pycectv jos niitä on..
+        skriptihakemisto= os.path.expanduser("~")+"/pycectv"
+        if not os.path.isdir(skriptihakemisto):
+            debug("ei ole skriptihakemistoa",skriptihakemisto)
+            return
+        self.otracks=[]
+        self.list_omat.clear()
+        self.list_omat.show()
+        self.frame_tracktausta.show()
+        filut=os.listdir(skriptihakemisto)
+        for filu in filut:
+            self.otracks.append(filu)
+            self.list_omat.addItem(filu)
+        self.otracks.append("!close")
+        self.list_omat.addItem("[sulje]")
+        self.list_omat.setFocus()
+        self.list_omat.setCurrentRow(0)
+
+    def klikattuOraita(self):
+        kohde=self.list_omat.currentRow()
+        debug("omaKLIK", kohde, self.otracks[kohde])
+        if self.otracks[kohde]=="!close":
+            self.list_omat.hide()
+            self.frame_tracktausta.hide()
+            self.alapalkkiHide()
+            return
+        else:
+            Form.hide()
+            komento= os.path.expanduser("~")+"/pycectv/"+self.otracks[kohde]
+            self.omaPaalla = subprocess.Popen(komento, stdout=subprocess.PIPE,shell=True, preexec_fn=os.setsid) 
+            debug("PID",self.omaPaalla.pid)
 
 
     def tvklik(self):
