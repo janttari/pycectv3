@@ -222,7 +222,6 @@ class Ui_Form(QtCore.QObject):
         self.btn_toiminnot.clicked.connect(lambda: self.klikattumenu(TRACKTOIMINNOT))
         self.btn_oma.clicked.connect(lambda: self.klikattumenu(TRACKOMA))
         self.btn_tallenne.clicked.connect(self.movieklik)
-        self.tvklik()
         cec.add_callback(self.cecNappain, cec.EVENT_KEYPRESS)
         cec.init()
         self.nappain=None
@@ -243,6 +242,9 @@ class Ui_Form(QtCore.QObject):
         self.timerAutoraita=QtCore.QTimer()
         self.timerAutoraita.setInterval(5000)
         self.timerAutoraita.timeout.connect(self.autoRaidat)
+        self.kanavalistatyyppi=0 #0 jos ollaan tv-listalla ja 1 jos ollaan tallenne-listalla
+        self.kanavalistasijainti=[0,0] #tv ja tallenne sijainnit
+        self.tvklik()
 
 
     def cecNappain(self, event, *args): #cec:n callback (**1**)
@@ -431,19 +433,15 @@ class Ui_Form(QtCore.QObject):
 
 
     def tvklik(self):
+        self.kanavalistatyyppi=0
         self.frame_video.setFixedSize(self.monitor.width()-KANAVALISTALEVEYS,self.monitor.height())
         self.frame_video.move(KANAVALISTALEVEYS,0)
         self.frame_ohjelma.show()
         self.frame_ala.hide()
         self.list_ohjelma.clear()
         self.striimiLista=[]
-        # self.striimiLista.append(["<--", "exit"])
-        # qitem=QtWidgets.QListWidgetItem("<--")
-        # qitem.setForeground(QtGui.QColor("red"))
-        # self.list_ohjelma.addItem(qitem)
         self.list_ohjelma.show()
         self.list_ohjelma.setFocus()
-        self.list_ohjelma.setCurrentRow(0)
         url = ENIGMAURL+"/api/getallservices" 
         r=requests.get(url)
         data = r.json()
@@ -460,21 +458,19 @@ class Ui_Form(QtCore.QObject):
                     qitem.setForeground(QtGui.QColor("bisque"))
                 self.list_ohjelma.addItem(qitem)
                 self.striimiLista.append([alipalvelu["servicename"] , alipalvelu["servicereference"]])
+        debug("kohdistetaan kanavalistalle tv kohtaan",self.kanavalistasijainti[0])
+        self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[0])
 
-    def movieklik(self): 
+    def movieklik(self):
+        self.kanavalistatyyppi=1
         self.frame_video.setFixedSize(self.monitor.width()-KANAVALISTALEVEYS,self.monitor.height())
         self.frame_video.move(KANAVALISTALEVEYS,0)
         self.frame_ohjelma.show()
         self.frame_ala.hide()
         self.list_ohjelma.clear()
         self.striimiLista=[]
-        # self.striimiLista.append(["<--", "exit"])
-        # qitem=QtWidgets.QListWidgetItem("<--")
-        # qitem.setForeground(QtGui.QColor("red"))
-        # self.list_ohjelma.addItem(qitem)
         self.list_ohjelma.show()
         self.list_ohjelma.setFocus()
-        self.list_ohjelma.setCurrentRow(0)
         url = ENIGMAURL+"/api/movielist" 
         r=requests.get(url)
         data = r.json()
@@ -500,7 +496,8 @@ class Ui_Form(QtCore.QObject):
                 qitem.setForeground(QtGui.QColor("bisque"))
                 self.list_ohjelma.addItem(qitem)
                 self.striimiLista.append([d["filename_stripped"] , d["serviceref"]])
-
+        debug("kohdistetaan kanavalistalle tallenne kohtaan",self.kanavalistasijainti[1])
+        self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
 
     def klikattuKohde(self): #kanavalistalta klikattu ohjelmaa
         self.frame_video.move(0,0)
@@ -514,6 +511,12 @@ class Ui_Form(QtCore.QObject):
         if self.videoPlayer is not None:
             self.stopVlc()
         soittourl=self.striimiperus+urllib.parse.quote(self.striimiLista[kohde][1])
+        if self.kanavalistatyyppi==0:
+            self.kanavalistasijainti[0]=kohde
+            debug("kanavalista tv sijainti",self.kanavalistasijainti[0])
+        elif self.kanavalistatyyppi==1:
+            self.kanavalistasijainti[1]=kohde
+            debug("kanavalista tallenne sijainti",self.kanavalistasijainti[1])
         debug("SOITA", soittourl)
         #self.frame_ala.hide()
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 

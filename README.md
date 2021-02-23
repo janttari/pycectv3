@@ -42,7 +42,7 @@ Todo:
 - [ ] tallenteiden kelaus 
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
 - [x] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
-- [ ] muista lista kanavalistalla uudelleen lista avattaessa
+- [x] muista sijainti kanavalistalla uudelleen lista avattaessa
 
 
 
