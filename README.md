@@ -4,7 +4,7 @@ Enigma2 toistaja Raspberrylle.
 Tällä ohjelmalla ja Raspberryllä voit katsella Enigma2-boksilta suoria lähetyksiä ja tallenteita.  
 Ohjelman ohjaus tapahtuu TV:n kaukosäätimen kautta (HDMI-CEC)  
 
-![](https://raw.githubusercontent.com/janttari/pycectv/main/doc/kuva/demo.png)
+![](https://raw.githubusercontent.com/janttari/pycectv3/main/doc/kuvat/demo.png)
   
 Säädä tiedosto ~/.config/pycectv.conf  
   
