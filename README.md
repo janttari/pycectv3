@@ -46,7 +46,7 @@ Todo:
 - [x] muista sijainti kanavalistalla uudelleen lista avattaessa
 
 
-
+-----
 Omia skriptejä voi laittaa hakemistoon ~/pycectv
 skripti voi olla tavallinen bash-skripti, esim:
   
