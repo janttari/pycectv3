@@ -328,9 +328,6 @@ class Ui_Form(QtCore.QObject):
             if nappi in ["YLÖS", "ALAS", "OK"]:
                 event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress, nappain, QtCore.Qt.NoModifier)
                 QtCore.QCoreApplication.sendEvent(widget, event)
-            # elif nappi == "BACK":
-            #     widget.hide()
-            #     self.alapalkkiHide()
 
     def klikattumenu(self, tyyppi):
         if tyyppi==TRACKAUDIO:
@@ -417,12 +414,6 @@ class Ui_Form(QtCore.QObject):
         self.frame_raitatausta.hide()
         self.frame_ala.hide()
 
-
-    def alapalkkiHide(self):
-        #self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height())
-        #self.frame_video.move(0,0)
-        pass
-        #self.frame_ala.hide()
 
     def alapalkkiShow(self):
         #self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height()-ALAPALKKIKORKEUS)
