@@ -24,7 +24,7 @@ import subprocess, signal
 
 def debug(*args):
     pass
-    print(args)
+    #print(args)
 
 home = str(Path.home())
 debug(home)
@@ -238,28 +238,11 @@ class Ui_Form(QtCore.QObject):
         self.frame_ohjelma.move(0,0)
         self.list_ohjelma.setFixedSize(KANAVALISTALEVEYS,self.monitor.height())
         self.list_ohjelma.move(0,0)
-        self.omaPaalla=None #oma skripti päällä?
+        self.omaProsessi=None #oma skripti päällä?
         self.tallenneToistuu=None #Tallenteen toistuessa pause ja pikakelaus mahdollista
         self.timerAutoraita=QtCore.QTimer()
         self.timerAutoraita.setInterval(5000)
         self.timerAutoraita.timeout.connect(self.autoRaidat)
-
-
-
-    #     self.timer = QtCore.QTimer()
-    #     self.timer.setInterval(5000) 
-    #     self.timer.timeout.connect(self.timertask)
-    #     self.timer.start()
-
-    # def timertask(self):
-    #     self.frame_ala.show()
-    #     self.btn_tv.setFocus()
-    #     self.frame_ala.raise_()
-    #     # self.frame_raitatausta.show()
-    #     # self.frame_raitatausta.raise_()
-    #     # self.list_menu.show()
-    #     # self.list_menu.raise_()
-
 
 
     def cecNappain(self, event, *args): #cec:n callback (**1**)
@@ -274,11 +257,22 @@ class Ui_Form(QtCore.QObject):
 
     def sendKey(self, nappi): #(**3**)
         debug("saatu", nappi)
-        if self.omaPaalla is not None: #jos oma ulkoinen skripti päällä
-            if nappi in ["STOP", "BACK"]: #pysäytetään oma skripti
+        if self.omaProsessi is not None: #jos oma ulkoinen skripti päällä
+            if nappi in ["STOP", "BACK"]: #pysäytetään oma skripti !TODO kuinka tää kuuluu oikeasti tehdä?
                 debug("tapetaan oma")
-                os.killpg(os.getpgid(self.omaPaalla.pid), signal.SIGTERM) 
-                self.omaPaalla=None
+                debug("A")
+                killingProcess = "kill -TERM -" + str(self.omaProsessi.pid())
+                os.system(killingProcess)
+                time.sleep(0.1)
+                debug("B")
+                self.omaProsessi.close()
+                debug("C")
+                self.omaProsessi.kill()
+                debug("D")
+                self.omaProsessi.waitForFinished(1)
+                debug("E")
+                self.omaProsessi=None
+                debug("F")
                 Form.showMaximized()
                 self.frame_ala.show()
                 self.btn_tv.setFocus()
@@ -300,14 +294,21 @@ class Ui_Form(QtCore.QObject):
         elif nappi == "BACK":
             nappain=QtCore.Qt.Key_Escape
         widget = QtWidgets.QApplication.focusWidget() #aktiivinen widget
+        if widget is None: #esim kun omasta skriptistä tullaan ulos, voi olla hetken tällainen tilanne
+            return
         obj=widget.objectName() #aktiivisen widgetin nimi
         debug("widget",widget, obj)
+        if widget == self.list_menu and nappi == "BACK":
+            self.frame_raitatausta.hide()
+            self.btn_tv.setFocus()
         if widget == self.list_ohjelma and self.list_ohjelma.isVisible():
+            debug("list_ohjelma")
             if nappi in ["YLÖS", "ALAS", "OK"]:
                 event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress, nappain, QtCore.Qt.NoModifier)
                 QtCore.QCoreApplication.sendEvent(widget, event)
             elif nappi in ["VASEN", "BACK"]: #piilota kanavalista
-                self.list_ohjelma.hide()
+                debug("piilota kanavalista")
+                self.frame_ohjelma.hide()
                 self.frame_video.move(0,0)
                 self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height())
                 self.alapalkkiShow()
@@ -393,6 +394,7 @@ class Ui_Form(QtCore.QObject):
             if self.tracks[kohde][1] == "!stop": 
                 if self.videoPlayer is not None:
                     self.stopVlc()
+                    self.frame_video.update()
             elif self.tracks[kohde][1] == "!reboot":
                 os.system("sudo reboot")
             elif self.tracks[kohde][1] == "!halt":
@@ -405,9 +407,11 @@ class Ui_Form(QtCore.QObject):
             if self.videoPlayer is not None:
                 self.stopVlc()
             Form.hide()
-            komento= os.path.expanduser("~")+"/pycectv/"+self.tracks[kohde][1]
-            self.omaPaalla = subprocess.Popen(komento, stdout=subprocess.PIPE,shell=True, preexec_fn=os.setsid) 
-            debug("PID",self.omaPaalla.pid)
+            komento= "setsid -w "+os.path.expanduser("~")+"/pycectv/"+self.tracks[kohde][1]+" &"
+            #self.omaProsessi = subprocess.Popen(komento, stdout=subprocess.PIPE,shell=True, preexec_fn=os.setsid) 
+            #debug("PID",self.omaProsessi.pid)
+            self.omaProsessi=QtCore.QProcess()
+            self.omaProsessi.start(komento)
         self.frame_raitatausta.hide()
         self.frame_ala.hide()
 
@@ -433,10 +437,10 @@ class Ui_Form(QtCore.QObject):
         self.frame_ala.hide()
         self.list_ohjelma.clear()
         self.striimiLista=[]
-        self.striimiLista.append(["<--", "exit"])
-        qitem=QtWidgets.QListWidgetItem("<--")
-        qitem.setForeground(QtGui.QColor("red"))
-        self.list_ohjelma.addItem(qitem)
+        # self.striimiLista.append(["<--", "exit"])
+        # qitem=QtWidgets.QListWidgetItem("<--")
+        # qitem.setForeground(QtGui.QColor("red"))
+        # self.list_ohjelma.addItem(qitem)
         self.list_ohjelma.show()
         self.list_ohjelma.setFocus()
         self.list_ohjelma.setCurrentRow(0)
@@ -464,10 +468,10 @@ class Ui_Form(QtCore.QObject):
         self.frame_ala.hide()
         self.list_ohjelma.clear()
         self.striimiLista=[]
-        self.striimiLista.append(["<--", "exit"])
-        qitem=QtWidgets.QListWidgetItem("<--")
-        qitem.setForeground(QtGui.QColor("red"))
-        self.list_ohjelma.addItem(qitem)
+        # self.striimiLista.append(["<--", "exit"])
+        # qitem=QtWidgets.QListWidgetItem("<--")
+        # qitem.setForeground(QtGui.QColor("red"))
+        # self.list_ohjelma.addItem(qitem)
         self.list_ohjelma.show()
         self.list_ohjelma.setFocus()
         self.list_ohjelma.setCurrentRow(0)
@@ -584,14 +588,17 @@ class Ui_Form(QtCore.QObject):
         self.striimiperus=surl
 
     def stopVlc(self):
+        debug("vlc seis?")
         if self.videoPlayer is not None:
+            debug("vlc seis!")
             self.videoPlayer.release()
             self.media.release()
+            self.videoPlayer=None
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    #app.setStyle('Fusion')
+    app.setStyle('Fusion')
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
