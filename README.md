@@ -53,5 +53,7 @@ skripti voi olla tavallinen bash-skripti, esim:
     #!/bin/bash
     xmessage "eka"
 (tietysti chmod a+x sille että suorituskelpoinen)  
+omasta skriptistä pääsee pois STOP tai BACK -näppäimellä.  
+  
   
   
