@@ -43,7 +43,7 @@
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{
@@ -67,7 +67,7 @@ color: yellow;};</string>
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{
@@ -91,7 +91,7 @@ color: yellow;};</string>
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{
@@ -115,7 +115,7 @@ color: yellow;};</string>
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{
@@ -139,7 +139,7 @@ color: yellow;};</string>
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{
@@ -163,7 +163,7 @@ color: yellow;};</string>
     <property name="styleSheet">
      <string notr="true">QToolButton{
 background-color: rgb(0,0,255);
-font: 18pt &quot;Ubuntu&quot;;
+font: 16pt &quot;Ubuntu&quot;;
 color: yellow;}
 
 QToolButton::focus{

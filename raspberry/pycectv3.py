@@ -61,7 +61,6 @@ class Ui_Form(QtCore.QObject):
     signal = QtCore.pyqtSignal([str])
 #################################################
 
-
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(873, 566)
@@ -75,7 +74,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_tv.setGeometry(QtCore.QRect(10, 10, 100, 50))
         self.btn_tv.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -87,7 +86,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_tallenne.setGeometry(QtCore.QRect(120, 10, 100, 50))
         self.btn_tallenne.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -99,7 +98,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_teksti.setGeometry(QtCore.QRect(230, 10, 100, 50))
         self.btn_teksti.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -111,7 +110,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setGeometry(QtCore.QRect(340, 10, 100, 50))
         self.btn_aani.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -123,7 +122,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_oma.setGeometry(QtCore.QRect(450, 10, 100, 50))
         self.btn_oma.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -135,7 +134,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_toiminnot.setGeometry(QtCore.QRect(560, 10, 100, 50))
         self.btn_toiminnot.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
-"font: 18pt \"Ubuntu\";\n"
+"font: 16pt \"Ubuntu\";\n"
 "color: yellow;}\n"
 "\n"
 "QToolButton::focus{\n"
@@ -203,6 +202,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setText(_translate("Form", "Ääni"))
         self.btn_oma.setText(_translate("Form", "Oma"))
         self.btn_toiminnot.setText(_translate("Form", "Menu"))
+
 
 
 #################################################
