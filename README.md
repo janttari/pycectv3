@@ -13,7 +13,12 @@ Säädä tiedosto ~/.config/pycectv.conf
     alang=fin,swe,eng
     slang=dut,fin,swe
  
-      
+ enigmaurl | enigma2-boksi osoite  
+ user | käyttäjänimi jolla kirjaudutaan enigma2-boksille  
+ pass | enigma2-boksin salasana  
+ alang | automaattisten audio-kielien valinta tärkeysjärjestyksessä pilkulla erotettuna  
+ slang | automaattiseten tekstitys-kielien valinta tärkeysjärjestyksessä pilkulla erotettuna  
+ 
       
 Riippuvuudet:  
   
@@ -36,7 +41,8 @@ Todo:
 - [x] omat skriptit valikkoon TV ja Tallennne lisäksi
 - [ ] tallenteiden kelaus 
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
-- [ ] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
+- [x] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
+- [ ] muista lista kanavalistalla uudelleen lista avattaessa
 
 
 
