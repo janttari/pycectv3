@@ -209,25 +209,6 @@ color: yellow;};</string>
     <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
-  <widget class="QToolButton" name="btn_tmp">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>290</y>
-     <width>81</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 127);</string>
-   </property>
-   <property name="text">
-    <string>tmp</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame_soitin">
    <property name="geometry">
     <rect>

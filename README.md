@@ -9,7 +9,10 @@ Säädä tiedosto ~/.config/pycectv.conf
   
     enigmaurl=http://192.168.1.12  
     user=root  
-    pass=XXXX  
+    pass=XXXX
+    alang=fin,swe,eng
+    slang=dut,fin,swe
+ 
       
       
 Riippuvuudet:  
@@ -29,8 +32,19 @@ Jos haluaa teksti-tv-tekstitystä varten hyvän fontin, sen voi ladata: https://
 Todo:  
   
 - [x] ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi 
-- [ ] suosituille kielille valinta (audio ja tekstitys)
-- [ ] omat skriptit valikkoon TV ja Tallennne lisäksi
+- [x] suosituille kielille valinta (audio ja tekstitys)
+- [x] omat skriptit valikkoon TV ja Tallennne lisäksi
 - [ ] tallenteiden kelaus 
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
 - [ ] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
+
+
+
+Omia skriptejä voi laittaa hakemistoon ~/pycectv
+skripti voi olla tavallinen bash-skripti, esim:
+  
+    #!/bin/bash
+    xmessage "eka"
+(tietysti chmod a+x sille että suorituskelpoinen)  
+  
+  
