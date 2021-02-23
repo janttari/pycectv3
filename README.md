@@ -34,6 +34,7 @@ on ainoa tarvittava, joten sen voi ladata suoraankin.
   
 Jos haluaa teksti-tv-tekstitystä varten hyvän fontin, sen voi ladata: https://www.fontsquirrel.com/fonts/tiresias-infofont  
   
+-----
     
 Todo:  
   
