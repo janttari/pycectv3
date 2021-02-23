@@ -416,8 +416,6 @@ class Ui_Form(QtCore.QObject):
 
 
     def alapalkkiShow(self):
-        #self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height()-ALAPALKKIKORKEUS)
-        #self.frame_video.move(0,0)
         self.frame_ala.show()
         self.frame_ala.raise_()
         self.btn_tv.setFocus()
