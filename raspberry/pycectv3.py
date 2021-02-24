@@ -514,15 +514,17 @@ class Ui_Form(QtCore.QObject):
             return
         if self.videoPlayer is not None:
             self.stopVlc()
-        soittourl=self.striimiperus+urllib.parse.quote(self.striimiLista[kohde][1])
         if self.kanavalistatyyppi==0:
             self.kanavalistasijainti[0]=kohde
             debug("kanavalista tv sijainti",self.kanavalistasijainti[0])
         elif self.kanavalistatyyppi==1:
             self.kanavalistasijainti[1]=kohde
             debug("kanavalista tallenne sijainti",self.kanavalistasijainti[1])
-        if self.kanavalistatyyppi==1:
+        if self.kanavalistatyyppi==1: #tallenne
+            soittourl=self.leffaurl+urllib.parse.quote(self.striimiLista[kohde][1])
             self.tallenneToistuu=soittourl
+        else: #live TV
+            soittourl=self.striimiperus+urllib.parse.quote(self.striimiLista[kohde][1])
         debug("SOITA", soittourl)
         #self.frame_ala.hide()
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
@@ -586,21 +588,17 @@ class Ui_Form(QtCore.QObject):
                         break
  
     def haeStriiminPerusosoite(self):
-        # url= ENIGMAURL+"/api/stream.m3u" #hae striimien perus-osoite
-        # debug(url)
-        # r=requests.get(url)
-        # vast=r.text
-        # surl=vast.split("\n")[-2]
-        # if salasana is not None:
-        #     alku, loppu=surl.split("://")
-        #     surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
-        # self.striimiperus=surl
-        # surl=ENIGMAURL
-        # if salasana is not None:
-        #     alku, loppu=surl.split("://")
-        #     surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
-        self.striimiperus=ENIGMAURL+"/file?file="
-        debug ("PERUSOS,",self.striimiperus)
+        url= ENIGMAURL+"/api/stream.m3u" #hae striimien perus-osoite
+        debug(url)
+        r=requests.get(url)
+        vast=r.text
+        surl=vast.split("\n")[-2]
+        if salasana is not None:
+            alku, loppu=surl.split("://")
+            surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
+        self.striimiperus=surl
+        self.leffaurl=ENIGMAURL+"/file?file="
+        debug ("PERUSOS,",self.striimiperus, self.leffaurl)
 
     def stopVlc(self):
         debug("vlc seis?")
