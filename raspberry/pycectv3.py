@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+#
+# libvlc_media_player_set_rate
+#
 KANAVALISTALEVEYS=650
 NAPIT = {1: "YLÖS", 0: "OK", 2: "ALAS", 3: "VASEN", 4: "OIKEA", 13: "BACK", 69: "STOP", 70: "PAUSE", 72: "REV", 73: "FWD", 68: "PLAY"}
 
@@ -281,8 +283,21 @@ class Ui_Form(QtCore.QObject):
             return
         elif self.tallenneToistuu: # tallenne on toistumassa
             if nappi in ["PAUSE", "REV", "FWD", "PLAY"]: # ohjataan tallennetta
-                pass #!TODO
-                return
+                if nappi == "PAUSE":
+                    self.videoPlayer.pause() # tämä toggle tai set_pause
+                    return
+                elif nappi =="PLAY":
+                    self.videoPlayer.set_rate(1.0)
+                    #self.videoPlayer.play()
+                    return
+                elif nappi =="FWD":
+                    self.videoPlayer.set_rate(8.0)
+                    return 
+                elif nappi =="REV": #!TODO Mieti tää, nyt hypätään vain prosentti taaksepäin
+                    sijainti=self.videoPlayer.get_position()
+                    self.videoPlayer.set_position(sijainti-0.01)
+                    self.videoPlayer.set_rate(1.0)
+                    return 
         if nappi=="ALAS":
             nappain=QtCore.Qt.Key_Down
         elif nappi=="YLÖS":
@@ -469,7 +484,7 @@ class Ui_Form(QtCore.QObject):
             qitem=QtWidgets.QListWidgetItem(d["filename_stripped"])
             qitem.setForeground(QtGui.QColor("bisque"))
             self.list_ohjelma.addItem(qitem)
-            self.striimiLista.append([d["filename_stripped"] , d["serviceref"]])
+            self.striimiLista.append([d["filename_stripped"] , d["filename"]])
         alihakemistot=data["bookmarks"]
         for ali in alihakemistot:
             qitem=QtWidgets.QListWidgetItem("***" + ali + "***")
@@ -484,7 +499,7 @@ class Ui_Form(QtCore.QObject):
                 qitem=QtWidgets.QListWidgetItem(d["filename_stripped"])
                 qitem.setForeground(QtGui.QColor("bisque"))
                 self.list_ohjelma.addItem(qitem)
-                self.striimiLista.append([d["filename_stripped"] , d["serviceref"]])
+                self.striimiLista.append([d["filename_stripped"] , d["filename"]])
         debug("kohdistetaan kanavalistalle tallenne kohtaan",self.kanavalistasijainti[1])
         self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
 
@@ -506,6 +521,8 @@ class Ui_Form(QtCore.QObject):
         elif self.kanavalistatyyppi==1:
             self.kanavalistasijainti[1]=kohde
             debug("kanavalista tallenne sijainti",self.kanavalistasijainti[1])
+        if self.kanavalistatyyppi==1:
+            self.tallenneToistuu=soittourl
         debug("SOITA", soittourl)
         #self.frame_ala.hide()
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
@@ -569,19 +586,26 @@ class Ui_Form(QtCore.QObject):
                         break
  
     def haeStriiminPerusosoite(self):
-        url= ENIGMAURL+"/api/stream.m3u" #hae striimien perus-osoite
-        debug(url)
-        r=requests.get(url)
-        vast=r.text
-        surl=vast.split("\n")[-2]
-        if salasana is not None:
-            alku, loppu=surl.split("://")
-            surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
-        self.striimiperus=surl
+        # url= ENIGMAURL+"/api/stream.m3u" #hae striimien perus-osoite
+        # debug(url)
+        # r=requests.get(url)
+        # vast=r.text
+        # surl=vast.split("\n")[-2]
+        # if salasana is not None:
+        #     alku, loppu=surl.split("://")
+        #     surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
+        # self.striimiperus=surl
+        # surl=ENIGMAURL
+        # if salasana is not None:
+        #     alku, loppu=surl.split("://")
+        #     surl=alku+"://"+kayttaja+":"+salasana+"@"+loppu
+        self.striimiperus=ENIGMAURL+"/file?file="
+        debug ("PERUSOS,",self.striimiperus)
 
     def stopVlc(self):
         debug("vlc seis?")
         if self.videoPlayer is not None:
+            self.tallenneToistuu=None
             debug("vlc seis!")
             self.videoPlayer.release()
             self.media.release()

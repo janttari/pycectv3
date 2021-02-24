@@ -41,7 +41,7 @@ Todo:
 - [x] ok painike toimii nyt alapalkin ollessa piilossa vaikkei pitäisi 
 - [x] suosituille kielille valinta (audio ja tekstitys)
 - [x] omat skriptit valikkoon TV ja Tallennne lisäksi
-- [ ] tallenteiden kelaus 
+- [x] tallenteiden kelaus (Pause toggle toimii, eteenpäin pikakelaus 8x nopeudella, paluu 1x playlla. REV on nyt vain 1% hyppy taaksepäin. !KESKEN)
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
 - [x] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
 - [x] muista sijainti kanavalistalla uudelleen lista avattaessa
