@@ -45,6 +45,7 @@ Todo:
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
 - [x] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
 - [x] muista sijainti kanavalistalla uudelleen lista avattaessa
+- [ ] Radio  
 
 
 -----

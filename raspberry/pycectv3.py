@@ -67,7 +67,7 @@ class Ui_Form(QtCore.QObject):
         Form.setObjectName("Form")
         Form.resize(873, 566)
         self.frame_ala = QtWidgets.QFrame(Form)
-        self.frame_ala.setGeometry(QtCore.QRect(190, 490, 670, 70))
+        self.frame_ala.setGeometry(QtCore.QRect(79, 490, 781, 70))
         self.frame_ala.setStyleSheet("background-color: rgb(85, 85, 255);")
         self.frame_ala.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_ala.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -97,7 +97,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_tallenne.setObjectName("btn_tallenne")
         self.btn_teksti = QtWidgets.QToolButton(self.frame_ala)
-        self.btn_teksti.setGeometry(QtCore.QRect(230, 10, 100, 50))
+        self.btn_teksti.setGeometry(QtCore.QRect(340, 10, 100, 50))
         self.btn_teksti.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 16pt \"Ubuntu\";\n"
@@ -109,7 +109,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_teksti.setObjectName("btn_teksti")
         self.btn_aani = QtWidgets.QToolButton(self.frame_ala)
-        self.btn_aani.setGeometry(QtCore.QRect(340, 10, 100, 50))
+        self.btn_aani.setGeometry(QtCore.QRect(450, 10, 100, 50))
         self.btn_aani.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 16pt \"Ubuntu\";\n"
@@ -121,7 +121,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_aani.setObjectName("btn_aani")
         self.btn_oma = QtWidgets.QToolButton(self.frame_ala)
-        self.btn_oma.setGeometry(QtCore.QRect(450, 10, 100, 50))
+        self.btn_oma.setGeometry(QtCore.QRect(560, 10, 100, 50))
         self.btn_oma.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 16pt \"Ubuntu\";\n"
@@ -133,7 +133,7 @@ class Ui_Form(QtCore.QObject):
 "color: yellow;};")
         self.btn_oma.setObjectName("btn_oma")
         self.btn_toiminnot = QtWidgets.QToolButton(self.frame_ala)
-        self.btn_toiminnot.setGeometry(QtCore.QRect(560, 10, 100, 50))
+        self.btn_toiminnot.setGeometry(QtCore.QRect(670, 10, 100, 50))
         self.btn_toiminnot.setStyleSheet("QToolButton{\n"
 "background-color: rgb(0,0,255);\n"
 "font: 16pt \"Ubuntu\";\n"
@@ -144,6 +144,18 @@ class Ui_Form(QtCore.QObject):
 "background-color: rgb(255,0,0); \n"
 "color: yellow;};")
         self.btn_toiminnot.setObjectName("btn_toiminnot")
+        self.btn_radio = QtWidgets.QToolButton(self.frame_ala)
+        self.btn_radio.setGeometry(QtCore.QRect(230, 10, 100, 50))
+        self.btn_radio.setStyleSheet("QToolButton{\n"
+"background-color: rgb(0,0,255);\n"
+"font: 16pt \"Ubuntu\";\n"
+"color: yellow;}\n"
+"\n"
+"QToolButton::focus{\n"
+"border-top-right-radius: 0px;\n"
+"background-color: rgb(255,0,0); \n"
+"color: yellow;};")
+        self.btn_radio.setObjectName("btn_radio")
         self.frame_raitatausta = QtWidgets.QFrame(Form)
         self.frame_raitatausta.setGeometry(QtCore.QRect(650, 30, 191, 201))
         self.frame_raitatausta.setStyleSheet("background-color: rgb(0, 170, 127);")
@@ -171,7 +183,7 @@ class Ui_Form(QtCore.QObject):
         self.frame_video.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_video.setObjectName("frame_video")
         self.frame_ohjelma = QtWidgets.QFrame(Form)
-        self.frame_ohjelma.setGeometry(QtCore.QRect(10, 10, 300, 493))
+        self.frame_ohjelma.setGeometry(QtCore.QRect(10, 10, 300, 421))
         self.frame_ohjelma.setMaximumSize(QtCore.QSize(300, 16777215))
         self.frame_ohjelma.setStyleSheet("background-color: rgb(0, 170, 127);")
         self.frame_ohjelma.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -194,6 +206,12 @@ class Ui_Form(QtCore.QObject):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.btn_tv, self.btn_tallenne)
+        Form.setTabOrder(self.btn_tallenne, self.btn_radio)
+        Form.setTabOrder(self.btn_radio, self.btn_teksti)
+        Form.setTabOrder(self.btn_teksti, self.btn_aani)
+        Form.setTabOrder(self.btn_aani, self.btn_oma)
+        Form.setTabOrder(self.btn_oma, self.btn_toiminnot)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -204,7 +222,7 @@ class Ui_Form(QtCore.QObject):
         self.btn_aani.setText(_translate("Form", "Ääni"))
         self.btn_oma.setText(_translate("Form", "Oma"))
         self.btn_toiminnot.setText(_translate("Form", "Menu"))
-
+        self.btn_radio.setText(_translate("Form", "Radio"))
 
 
 #################################################
@@ -217,6 +235,7 @@ class Ui_Form(QtCore.QObject):
         self.haeStriiminPerusosoite()
         self.videoPlayer=None
         self.btn_tv.clicked.connect(self.tvklik)
+        self.btn_radio.clicked.connect(self.radioklik)
         self.btn_aani.clicked.connect(lambda: self.klikattumenu(TRACKAUDIO))
         self.list_menu.clicked.connect(self.klikatturaita)
         self.list_menu.itemActivated.connect(self.klikatturaita)
@@ -244,8 +263,8 @@ class Ui_Form(QtCore.QObject):
         self.timerAutoraita=QtCore.QTimer()
         self.timerAutoraita.setInterval(5000)
         self.timerAutoraita.timeout.connect(self.autoRaidat)
-        self.kanavalistatyyppi=0 #0 jos ollaan tv-listalla ja 1 jos ollaan tallenne-listalla
-        self.kanavalistasijainti=[0,0] #tv ja tallenne sijainnit
+        self.kanavalistatyyppi=0 #0 jos ollaan tv-listalla ja 1 jos ollaan tallenne-listalla 2=radio
+        self.kanavalistasijainti=[0,0,0] #tv tallenne ja radio listojen viimeisimmät sijainnit
         self.tvklik()
 
 
@@ -503,6 +522,10 @@ class Ui_Form(QtCore.QObject):
         debug("kohdistetaan kanavalistalle tallenne kohtaan",self.kanavalistasijainti[1])
         self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
 
+    def radioklik(self):
+        self.kanavalistatyyppi=2
+        debug("TODO: RADIO")
+
     def klikattuKohde(self): #kanavalistalta klikattu ohjelmaa
         self.frame_video.move(0,0)
         self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height())
@@ -530,7 +553,7 @@ class Ui_Form(QtCore.QObject):
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
         #        '--text-renderer=any', '--freetype-rel-fontsize=-5']
         opts=['--video-on-top', '--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
-               '--sub-text-scale=60', '--sub-margin=20']
+               '--sub-text-scale=60', '--sub-margin=20'] #, '--deinterlace-mode=yadif']
         self.vlcInstance = vlc.Instance(opts)
         self.videoPlayer = self.vlcInstance.media_player_new()
         self.media = self.vlcInstance.media_new(soittourl)
