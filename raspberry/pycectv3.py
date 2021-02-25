@@ -563,7 +563,7 @@ class Ui_Form(QtCore.QObject):
                         debug(kanava, "-->",osoite)
                         self.striimiLista.append([2,[kanava,osoite]])
                         self.list_ohjelma.addItem(kanava)
-            self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
+            self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[2])
 
     def klikattuKohde(self): #kanavalistalta klikattu ohjelmaa
         self.frame_inforuutu.hide()
