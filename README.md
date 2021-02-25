@@ -33,6 +33,22 @@ tiedosto https://github.com/janttari/pycectv3/blob/main/raspberry/pycectv3.py
 on ainoa tarvittava, joten sen voi ladata suoraankin.  
   
 Jos haluaa teksti-tv-tekstitystä varten hyvän fontin, sen voi ladata: https://www.fontsquirrel.com/fonts/tiresias-infofont  
+
+-----
+RADIO:  
+Halutessasi voit sijoittaa soittolistan (m3u) kohteeseen ~/.config/pycectvradio.m3u  jolloin  
+se näkyy radio-valikossa.  
+Valmiin soittolistan voit ladata esimerkiksi: https://www.mediamonitori.fi/index.php/tietosivut/nettiradiot  
+  
+Soittolistan formaatti:
+  
+    #EXTM3U
+    #EXTINF:0,bassoradio_64.aac
+    https://stream.bauermedia.fi/basso/bassoradio_64.aac
+    #EXTINF:0,iskelma_64.aac
+    https://stream.bauermedia.fi/iskelma/iskelma_64.aac
+    #EXTINF:0,jarviradio2
+    http://radio2.6net.fi:8000/jarviradio2  
   
 -----
     
@@ -45,7 +61,7 @@ Todo:
 - [ ] vikasietoisuus, nyt kaatuu esim jos käynnistettäessä verkko ei ole vielä saatavilla.  
 - [x] sulje-painikkeelle valikko. Tällä hetkellä se vain pysäyttää VLC-instanssin.
 - [x] muista sijainti kanavalistalla uudelleen lista avattaessa
-- [ ] Radio  
+- [x] Radio  
 
 
 -----

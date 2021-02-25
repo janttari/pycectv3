@@ -29,6 +29,7 @@ def debug(*args):
     #print(args)
 
 home = str(Path.home())
+RADIOFILE=home+"/.config/pycectvradio.m3u"
 debug(home)
 if not os.path.exists(home+"/.config/pycectv.conf"):
     debug("konfiguraatiotiedosto ~/.config/pycectv.conf puuttuu!")
@@ -203,6 +204,18 @@ class Ui_Form(QtCore.QObject):
         self.list_ohjelma.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_ohjelma.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.list_ohjelma.setObjectName("list_ohjelma")
+        self.frame_inforuutu = QtWidgets.QFrame(Form)
+        self.frame_inforuutu.setGeometry(QtCore.QRect(430, 260, 251, 80))
+        self.frame_inforuutu.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.frame_inforuutu.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_inforuutu.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_inforuutu.setObjectName("frame_inforuutu")
+        self.lbl_inforuutu = QtWidgets.QLabel(self.frame_inforuutu)
+        self.lbl_inforuutu.setGeometry(QtCore.QRect(20, 30, 191, 41))
+        self.lbl_inforuutu.setStyleSheet("font: 16pt \"Ubuntu\";\n"
+"color: yellow;")
+        self.lbl_inforuutu.setText("")
+        self.lbl_inforuutu.setObjectName("lbl_inforuutu")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -265,6 +278,11 @@ class Ui_Form(QtCore.QObject):
         self.timerAutoraita.timeout.connect(self.autoRaidat)
         self.kanavalistatyyppi=0 #0 jos ollaan tv-listalla ja 1 jos ollaan tallenne-listalla 2=radio
         self.kanavalistasijainti=[0,0,0] #tv tallenne ja radio listojen viimeisimmät sijainnit
+        self.frame_inforuutu.move(self.monitor.width()/4*3,0)
+        self.frame_inforuutu.setFixedSize(self.monitor.width()/4,self.monitor.height()/4)
+        self.frame_inforuutu.hide()
+        self.lbl_inforuutu.move(0,0)
+        self.lbl_inforuutu.setFixedSize(self.frame_inforuutu.width(),self.frame_inforuutu.height())
         self.tvklik()
 
 
@@ -523,18 +541,38 @@ class Ui_Form(QtCore.QObject):
         self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
 
     def radioklik(self):
+        debug("radio", RADIOFILE)
         self.kanavalistatyyppi=2
-        debug("TODO: RADIO")
+        self.frame_video.setFixedSize(self.monitor.width()-KANAVALISTALEVEYS,self.monitor.height())
+        self.frame_video.move(KANAVALISTALEVEYS,0)
+        self.frame_ohjelma.show()
+        self.frame_ala.hide()
+        self.list_ohjelma.clear()
+        self.striimiLista=[]
+        self.list_ohjelma.show()
+        self.list_ohjelma.setFocus()
+        if os.path.isfile(RADIOFILE):
+            debug("radiofile on")
+            with open (RADIOFILE, "r") as f:
+                rivit=f.readlines()
+            for r in range(len(rivit))
+                if not rivit[r].startswith("#"):
+                    if rivit[r-1].startswith("#EXTINF"): #joissain useampia osoitteita, valitaan vain eka
+                        kanava=rivit[r-1].rstrip().split(",")[1]
+                        osoite=rivit[r].rstrip()
+                        debug(kanava, "-->",osoite)
+                        self.striimiLista.append([2,[kanava,osoite]])
+                        self.list_ohjelma.addItem(kanava)
+            self.list_ohjelma.setCurrentRow(self.kanavalistasijainti[1])
 
     def klikattuKohde(self): #kanavalistalta klikattu ohjelmaa
+        self.frame_inforuutu.hide()
         self.frame_video.move(0,0)
         self.frame_video.setFixedSize(self.monitor.width(),self.monitor.height())
         self.frame_ohjelma.hide()
         kohde=self.list_ohjelma.currentRow()
         debug("klikattukohde",kohde, self.striimiLista[kohde])
         self.list_ohjelma.hide()
-        if kohde==0: #exit ekana
-            return
         if self.videoPlayer is not None:
             self.stopVlc()
         if self.kanavalistatyyppi==0:
@@ -546,8 +584,14 @@ class Ui_Form(QtCore.QObject):
         if self.kanavalistatyyppi==1: #tallenne
             soittourl=self.leffaurl+urllib.parse.quote(self.striimiLista[kohde][1])
             self.tallenneToistuu=soittourl
-        else: #live TV
+        elif self.kanavalistatyyppi == 0 : #live TV
             soittourl=self.striimiperus+urllib.parse.quote(self.striimiLista[kohde][1])
+        elif self.kanavalistatyyppi == 2: #radio
+            self.kanavalistasijainti[2]=kohde
+            self.frame_inforuutu.show()
+            self.frame_inforuutu.raise_()
+            self.lbl_inforuutu.setText(self.striimiLista[kohde][1][0])
+            soittourl=self.striimiLista[kohde][1][1]
         debug("SOITA", soittourl)
         #self.frame_ala.hide()
         #opts=['--vbi-opaque', '--vbi-text', '--freetype-color=16776960', '--freetype-background-opacity=128', '--freetype-shadow-opacity=0', '--freetype-background-color=0', '--freetype-font=Tiresias Infofont', 
