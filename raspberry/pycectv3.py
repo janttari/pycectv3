@@ -555,7 +555,7 @@ class Ui_Form(QtCore.QObject):
             debug("radiofile on")
             with open (RADIOFILE, "r") as f:
                 rivit=f.readlines()
-            for r in range(len(rivit))
+            for r in range(len(rivit)):
                 if not rivit[r].startswith("#"):
                     if rivit[r-1].startswith("#EXTINF"): #joissain useampia osoitteita, valitaan vain eka
                         kanava=rivit[r-1].rstrip().split(",")[1]
